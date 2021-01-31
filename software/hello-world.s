@@ -2,9 +2,9 @@
 
 main:
   lda #<message
-  sta $0000
+  sta SYSCALL_ARG0
   lda #>message
-  sta $0001
+  sta SYSCALL_ARG1
   jsr NATEOS_PRINT
 
   wai

@@ -1,6 +1,23 @@
 NATEOS_CLEAR = $FF00
 NATEOS_PRINT = $FF03
 
+SYSCALL_ARG0 = $0000
+SYSCALL_ARG1 = $0001
+SYSCALL_ARG2 = $0002
+SYSCALL_ARG3 = $0003
+SYSCALL_ARG4 = $0004
+SYSCALL_ARG5 = $0005
+SYSCALL_ARG6 = $0006
+SYSCALL_ARG7 = $0007
+SYSCALL_ARG8 = $0008
+SYSCALL_ARG9 = $0009
+SYSCALL_ARG10 = $000a
+SYSCALL_ARG11 = $000b
+SYSCALL_ARG12 = $000c
+SYSCALL_ARG13 = $000d
+SYSCALL_ARG14 = $000e
+SYSCALL_ARG15 = $000f
+
 PORTB = $6000
 PORTA = $6001
 DDRB = $6002
@@ -32,14 +49,15 @@ reset:
   jmp main
 
   ;; print syscall
-  ;;   $00/$01 is the MSB/LSB of a null-terminated string
+  ;;   ARG0: MSB of a null-terminated string to print
+  ;;   ARG1: lSB of a null-terminated string to print
 nateos_print:
   pha
   phy
 
   ldy #00
 .print:
-  lda ($00),y
+  lda (SYSCALL_ARG0),y
   beq .eos
   jsr print_char
   iny
